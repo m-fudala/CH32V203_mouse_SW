@@ -1,12 +1,18 @@
 /*
 
 */
+
 #include "ch32v20x.h"
+#include "gpio.h"
 
 void clock_init(void);
 
 int main(void) {
     clock_init();
+
+    gpio_init();
+
+    set_led_state(1);
 
     while(1);
 }
