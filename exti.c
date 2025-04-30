@@ -5,7 +5,7 @@ void exti_init(void (*handler)(void)) {
 
     RCC->APB2PCENR |= RCC_IOPBEN | RCC_AFIOEN;   // enable port B clock
 
-    GPIOB->CFGLR = 0x4000;  // PB3: floating input
+    GPIOB->CFGLR = GPIO_CFGLR_CNF3_0;  // PB3: floating input
     AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI3_PB;   // map interrupt to port B
 
     EXTI->INTENR |= EXTI_INTENR_MR3;     // enable EXTI3 interrupt
