@@ -26,7 +26,10 @@ $(BUILD_DIR)/startup.o: $(STARTUP_NAME)
 $(BUILD_DIR)/gpio.o: gpio.c
 	$(CC)gcc gpio.c -o $(BUILD_DIR)/gpio.o $(CFLAGS)
 
-$(BUILD_DIR)/main.elf: $(BUILD_DIR)/main.o $(BUILD_DIR)/startup.o $(BUILD_DIR)/gpio.o
+$(BUILD_DIR)/exti.o: exti.c
+	$(CC)gcc exti.c -o $(BUILD_DIR)/exti.o $(CFLAGS)
+
+$(BUILD_DIR)/main.elf: $(BUILD_DIR)/main.o $(BUILD_DIR)/startup.o $(BUILD_DIR)/gpio.o $(BUILD_DIR)/exti.o
 	$(CC)gcc $(BUILD_DIR)/*.o -T $(LINKER) -o $(BUILD_DIR)/main.elf $(LFLAGS)
 
 main.hex: $(BUILD_DIR)/main.elf

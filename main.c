@@ -4,15 +4,29 @@
 
 #include "ch32v20x.h"
 #include "gpio.h"
+#include "exti.h"
 
 void clock_init(void);
+
+volatile unsigned char led_state = 0;
+
+void led_handler(void);
+
+void led_handler(void) {
+    if (led_state) {
+        set_led_state(0);
+    } else {
+        set_led_state(1);
+    }
+
+    led_state = !led_state;
+}
 
 int main(void) {
     clock_init();
 
     gpio_init();
-
-    set_led_state(1);
+    exti_init(led_handler);
 
     while(1);
 }
