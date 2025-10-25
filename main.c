@@ -13,19 +13,15 @@ volatile unsigned char led_state = 0;
 void led_handler(void);
 
 void led_handler(void) {
-    if (led_state) {
-        set_led_state(0);
-    } else {
-        set_led_state(1);
-    }
-
     led_state = !led_state;
+
+    set_led_state(led_state);
 }
 
 int main(void) {
     clock_init();
 
-    gpio_init();
+    gpio_init(LED_PWM);
     exti_init(led_handler);
 
     while(1);
@@ -52,4 +48,8 @@ void clock_init(void) {
     while (!(RCC->CFGR0 & RCC_SWS_PLL));   // check if PLL is the source
 
     RCC->CTLR &= ~RCC_HSION;     // disable HSI
+}
+
+void HardFault_Handler(void) {
+    asm("nop");
 }

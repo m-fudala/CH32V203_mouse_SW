@@ -14,7 +14,7 @@ flash: main.hex
 	wlink erase && wlink flash main.hex -v
 
 clean:
-	del /S *.o *.elf
+	rm -f $(BUILD_DIR)/*
 
 $(BUILD_DIR)/main.o: main.c
 	mkdir -p $(BUILD_DIR)
@@ -29,7 +29,10 @@ $(BUILD_DIR)/gpio.o: gpio.c
 $(BUILD_DIR)/exti.o: exti.c
 	$(CC)gcc exti.c -o $(BUILD_DIR)/exti.o $(CFLAGS)
 
-$(BUILD_DIR)/main.elf: $(BUILD_DIR)/main.o $(BUILD_DIR)/startup.o $(BUILD_DIR)/gpio.o $(BUILD_DIR)/exti.o
+$(BUILD_DIR)/timers.o: timers.c
+	$(CC)gcc timers.c -o $(BUILD_DIR)/timers.o $(CFLAGS)
+
+$(BUILD_DIR)/main.elf: $(BUILD_DIR)/main.o $(BUILD_DIR)/startup.o $(BUILD_DIR)/gpio.o $(BUILD_DIR)/exti.o $(BUILD_DIR)/timers.o
 	$(CC)gcc $(BUILD_DIR)/*.o -T $(LINKER) -o $(BUILD_DIR)/main.elf $(LFLAGS)
 
 main.hex: $(BUILD_DIR)/main.elf
