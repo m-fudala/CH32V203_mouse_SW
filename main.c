@@ -5,12 +5,13 @@
 #include "includes/ch32v20x.h"
 #include "libs/gpio.h"
 #include "libs/exti.h"
+#include "libs/uart.h"
 
 void clock_init(void);
+void led_handler(void);
+void uart_parse(char *buffer, char buffer_length);
 
 volatile unsigned char led_state = 0;
-
-void led_handler(void);
 
 void led_handler(void) {
     led_state = !led_state;
@@ -18,11 +19,19 @@ void led_handler(void) {
     set_led_state(led_state);
 }
 
+void uart_parse(char *buffer, char buffer_length) {
+    uart_send(buffer, buffer_length);
+}
+
 int main(void) {
     clock_init();
 
     gpio_init(LED_PWM);
     exti_init(led_handler);
+    uart_init(uart_parse);
+
+    char message[] = "Program start\r\n";
+    uart_send(message, 15);
 
     while(1);
 }

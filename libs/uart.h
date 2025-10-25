@@ -1,11 +1,11 @@
 /*
-    Configuration for USART1 on CH32V203 
+    Configuration for USART2 on CH32V203 
 
     https://github.com/m-fudala
 */
 
-#ifndef UART_LIB_H_
-#define UART_LIB_H_
+#ifndef UART_H_
+#define UART_H_
 
 #include "../includes/ch32v20x.h"
 
@@ -25,6 +25,6 @@ void uart_send(char *bytes, unsigned char bytes_len);
 
 static void (*idle_function_pointer)(char *buffer, char buffer_length);
 
-void USART1_IRQHandler() __attribute__((interrupt()));
+void USART2_IRQHandler() __attribute__((interrupt()));
 
 #endif

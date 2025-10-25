@@ -32,7 +32,10 @@ $(BUILD_DIR)/exti.o: libs/exti.c
 $(BUILD_DIR)/timers.o: libs/timers.c
 	$(CC)gcc libs/timers.c -o $(BUILD_DIR)/timers.o $(CFLAGS)
 
-$(BUILD_DIR)/main.elf: $(BUILD_DIR)/main.o $(BUILD_DIR)/startup.o $(BUILD_DIR)/gpio.o $(BUILD_DIR)/exti.o $(BUILD_DIR)/timers.o
+$(BUILD_DIR)/uart.o: libs/uart.c
+	$(CC)gcc libs/uart.c -o $(BUILD_DIR)/uart.o $(CFLAGS)
+
+$(BUILD_DIR)/main.elf: $(BUILD_DIR)/main.o $(BUILD_DIR)/startup.o $(BUILD_DIR)/gpio.o $(BUILD_DIR)/exti.o $(BUILD_DIR)/timers.o $(BUILD_DIR)/uart.o
 	$(CC)gcc $(BUILD_DIR)/*.o -T $(LINKER) -o $(BUILD_DIR)/main.elf $(LFLAGS)
 
 main.hex: $(BUILD_DIR)/main.elf
