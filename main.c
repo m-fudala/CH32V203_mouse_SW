@@ -20,7 +20,16 @@ void led_handler(void) {
 }
 
 void uart_parse(char *buffer, char buffer_length) {
-    uart_send(buffer, buffer_length);
+    // simple way of checking if message starts with 'pwm'
+    if (buffer[0] == 'p' && buffer[1] == 'w' && buffer[2] == 'm') {
+        // get the duty cycle
+        char pwm_duty_cycle = (buffer[4] - '0') * 100 + (buffer[5] - '0') * 10
+                + (buffer[6] - '0');
+
+        pwm_set_duty_cycle(pwm_duty_cycle);
+    } else {    // if not, just echo the message
+        uart_send(buffer, buffer_length);
+    }
 }
 
 int main(void) {
