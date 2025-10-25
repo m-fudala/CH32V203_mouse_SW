@@ -5,7 +5,7 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
-#include "ch32v20x.h"
+#include "../includes/ch32v20x.h"
 #include "timers.h"
 
 typedef enum {

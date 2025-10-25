@@ -5,7 +5,7 @@
 #ifndef EXTI_H_
 #define EXTI_H_
 
-#include "ch32v20x.h"
+#include "../includes/ch32v20x.h"
 
 void exti_init(void (*handler)(void));
 

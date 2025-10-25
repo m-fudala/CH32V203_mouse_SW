@@ -2,9 +2,9 @@
 
 */
 
-#include "ch32v20x.h"
-#include "gpio.h"
-#include "exti.h"
+#include "includes/ch32v20x.h"
+#include "libs/gpio.h"
+#include "libs/exti.h"
 
 void clock_init(void);
 
